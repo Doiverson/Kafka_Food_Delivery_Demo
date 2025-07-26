@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Development overrides for frontend with hot reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/next.config.ts:/app/next.config.ts
+      - ./frontend/tailwind.config.ts:/app/tailwind.config.ts
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - NEXT_PUBLIC_ORDER_SERVICE_URL=http://localhost:3001
+      - NEXT_PUBLIC_RESTAURANT_SERVICE_URL=http://localhost:3002
+      - NEXT_PUBLIC_DELIVERY_SERVICE_URL=http://localhost:3003
